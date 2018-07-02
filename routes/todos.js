@@ -35,4 +35,20 @@ router.get("/:todoId", function(req, res){
   })
 })
 
+//UPDATE Route
+router.put("/:todoId", function(req, res){
+  db.Todo.findOneAndUpdate({_id: req.params.todoId}, 
+                            req.body,
+                            {new: true}
+                            )
+   // req.params coming from route vars & replace with data
+   //coming from req.body
+   //new: true // res,send will respond with updated object
+  .then(function(updatedTodo){
+    res.json(updatedTodo)
+  })
+  .catch(function(err){
+    res.send(err);
+  })
+})
 module.exports = router;
